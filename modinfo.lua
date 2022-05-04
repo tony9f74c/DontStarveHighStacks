@@ -1,7 +1,7 @@
 name = "High Stacks"
 description = "Increase stack size of all stackable items."
-author = "https://steamcommunity.com/profiles/76561198002269576"
-version = "2.15"
+author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
+version = "2.15b"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
