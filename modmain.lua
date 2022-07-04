@@ -6,12 +6,12 @@ TUNING.STACK_SIZE_LARGEITEM = GetModConfigData("cfgChangeLargeStacksSize");
 TUNING.STACK_SIZE_MEDITEM = GetModConfigData("cfgChangeMediumStacksSize");
 TUNING.STACK_SIZE_SMALLITEM = GetModConfigData("cfgChangeSmallStacksSize"); 
 
-local r_s = GLOBAL.require("components/stackable_replica") -- Credit: Jupiter: http://steamcommunity.com/profiles/76561198204009267
-r_s._ctor = function(self, inst)
+local stack_replica = GLOBAL.require("components/stackable_replica")
+stack_replica._ctor = function(self, inst)
 	self.inst = inst
 	self._stacksize = GLOBAL.net_shortint(inst.GUID, "stackable._stacksize", "stacksizedirty")
 	self._maxsize = GLOBAL.net_tinybyte(inst.GUID, "stackable._maxsize")
-end
+end -- Credit: Jupiter: http://steamcommunity.com/profiles/76561198204009267
 
 local function makeStackable(inst)
     if not inst.components.stackable and GLOBAL.TheWorld.ismastersim then
@@ -108,35 +108,36 @@ end
     AddPrefabPostInit("mosquito", removeMurder)
  end
 
-local function crsRemovePerish(inst)
+local function removePerish(inst)
     if inst.components.perishable and GLOBAL.TheWorld.ismastersim then
         inst:RemoveComponent("perishable")
     end
 end
 
 if GetModConfigData("cfgJerkyDoesntPerish") then
-    AddPrefabPostInit("meat_dried", crsRemovePerish)
-    AddPrefabPostInit("smallmeat_dried", crsRemovePerish)
-    AddPrefabPostInit("monstermeat_dried", crsRemovePerish)
+    AddPrefabPostInit("meat_dried", removePerish)
+    AddPrefabPostInit("smallmeat_dried", removePerish)
+    AddPrefabPostInit("monstermeat_dried", removePerish)
 end
 
 if GetModConfigData("cfgSeedsDontPerish") then
-    AddPrefabPostInit("seeds", crsRemovePerish)
+    AddPrefabPostInit("seeds", removePerish)
 end
 
 if GetModConfigData("cfgVegSeedsDontPerish") then
-    AddPrefabPostInit("carrot_seeds", crsRemovePerish)
-    AddPrefabPostInit("corn_seeds", crsRemovePerish)
-    AddPrefabPostInit("dragonfruit_seeds", crsRemovePerish)
-    AddPrefabPostInit("durian_seeds", crsRemovePerish)
-    AddPrefabPostInit("eggplant_seeds", crsRemovePerish)
-    AddPrefabPostInit("pomegranate_seeds", crsRemovePerish)
-    AddPrefabPostInit("pumpkin_seeds", crsRemovePerish)
-    AddPrefabPostInit("watermelon_seeds", crsRemovePerish)
-    AddPrefabPostInit("garlic_seeds", crsRemovePerish)
-    AddPrefabPostInit("onion_seeds", crsRemovePerish)
-    AddPrefabPostInit("pepper_seeds", crsRemovePerish)
-    AddPrefabPostInit("potato_seeds", crsRemovePerish)
-    AddPrefabPostInit("tomato_seeds", crsRemovePerish)
-    AddPrefabPostInit("asparagus_seeds", crsRemovePerish)
+    AddPrefabPostInit("carrot_seeds", removePerish)
+    AddPrefabPostInit("corn_seeds", removePerish)
+    AddPrefabPostInit("dragonfruit_seeds", removePerish)
+    AddPrefabPostInit("durian_seeds", removePerish)
+    AddPrefabPostInit("eggplant_seeds", removePerish)
+    AddPrefabPostInit("pomegranate_seeds", removePerish)
+    AddPrefabPostInit("pumpkin_seeds", removePerish)
+    AddPrefabPostInit("watermelon_seeds", removePerish)
+    AddPrefabPostInit("garlic_seeds", removePerish)
+    AddPrefabPostInit("onion_seeds", removePerish)
+    AddPrefabPostInit("pepper_seeds", removePerish)
+    AddPrefabPostInit("potato_seeds", removePerish)
+    AddPrefabPostInit("tomato_seeds", removePerish)
+    AddPrefabPostInit("asparagus_seeds", removePerish)
 end
+
