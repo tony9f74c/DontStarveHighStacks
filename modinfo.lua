@@ -1,7 +1,7 @@
 name = "High Stacks"
 description = "Increase stack size of all stackable items."
 author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
-version = "2.15b"
+version = "2.16"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
@@ -43,9 +43,10 @@ local removeMurderlist = dontDieList
 local canStackList = {"Rabbits", "Birds", "Moles"}
 
 local options = {
-    {name = "cfgChangeSmallStacksSize", label = "Small Stacks", options = stacks, default = 100, hover = "Change the stack size of small items which normally stack to 40."},
-    {name = "cfgChangeMediumStacksSize", label = "Medium Stacks", options = stacks, default = 100, hover = "Change the stack size of medium items which normally stack to 20."},
-    {name = "cfgChangeLargeStacksSize", label = "Large Stacks", options = stacks, default = 100, hover = "Change the stack size of large items which normally stack to 10."}
+    {name = "cfgChangeTinyStacksSize", label = "Tiny Items Stack", options = stacks, default = 100, hover = "Change the stack size of tiny items which normally stack to 60."},
+    {name = "cfgChangeSmallStacksSize", label = "Small Items Stack", options = stacks, default = 100, hover = "Change the stack size of small items which normally stack to 40."},
+    {name = "cfgChangeMediumStacksSize", label = "Medium Items Stack", options = stacks, default = 100, hover = "Change the stack size of medium items which normally stack to 20."},
+    {name = "cfgChangeLargeStacksSize", label = "Large Items Stack", options = stacks, default = 100, hover = "Change the stack size of large items which normally stack to 10."}
 }
 
 for k=1, #canStackList, 1 do options[#options+1] = canStack(canStackList[k]) end

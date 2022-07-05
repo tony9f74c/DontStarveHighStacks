@@ -4,7 +4,8 @@ require "components/inventoryitem"
 
 TUNING.STACK_SIZE_LARGEITEM = GetModConfigData("cfgChangeLargeStacksSize");
 TUNING.STACK_SIZE_MEDITEM = GetModConfigData("cfgChangeMediumStacksSize");
-TUNING.STACK_SIZE_SMALLITEM = GetModConfigData("cfgChangeSmallStacksSize"); 
+TUNING.STACK_SIZE_SMALLITEM = GetModConfigData("cfgChangeSmallStacksSize");
+TUNING.STACK_SIZE_TINYITEM =  GetModConfigData("cfgChangeTinyStacksSize");
 
 local stack_replica = GLOBAL.require("components/stackable_replica")
 stack_replica._ctor = function(self, inst)
