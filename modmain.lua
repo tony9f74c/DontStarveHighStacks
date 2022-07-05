@@ -7,13 +7,16 @@ TUNING.STACK_SIZE_MEDITEM = GetModConfigData("cfgChangeMediumStacksSize");
 TUNING.STACK_SIZE_SMALLITEM = GetModConfigData("cfgChangeSmallStacksSize");
 TUNING.STACK_SIZE_TINYITEM =  GetModConfigData("cfgChangeTinyStacksSize");
 
+-- Update stackable_replica
+-- By Jupiter: http://steamcommunity.com/profiles/76561198204009267
 local stack_replica = GLOBAL.require("components/stackable_replica")
 stack_replica._ctor = function(self, inst)
 	self.inst = inst
 	self._stacksize = GLOBAL.net_shortint(inst.GUID, "stackable._stacksize", "stacksizedirty")
 	self._maxsize = GLOBAL.net_tinybyte(inst.GUID, "stackable._maxsize")
-end -- Credit: Jupiter: http://steamcommunity.com/profiles/76561198204009267
+end
 
+-- Make stackable
 local function makeStackable(inst)
     if not inst.components.stackable and GLOBAL.TheWorld.ismastersim then
         inst:AddComponent("stackable")
@@ -21,6 +24,22 @@ local function makeStackable(inst)
     end
 end
 
+AddPrefabPostInit("minotaurhorn", makeStackable)
+AddPrefabPostInit("tallbirdegg", makeStackable)
+if GetModConfigData("cfgRabbitsCanStackToggle") then
+    AddPrefabPostInit("rabbit", makeStackable)
+end
+if GetModConfigData("cfgBirdsCanStackToggle")then
+    AddPrefabPostInit("crow", makeStackable)
+    AddPrefabPostInit("robin", makeStackable)
+    AddPrefabPostInit("robin_winter", makeStackable)
+    AddPrefabPostInit("canary", makeStackable)
+end
+if GetModConfigData("cfgMolesCanStackToggle") then
+    AddPrefabPostInit("mole", makeStackable)
+end
+
+-- Remove feedable
 local function unmakeFeedable(inst)
     if inst.components.perishable and GLOBAL.TheWorld.ismastersim then
         inst:RemoveComponent("perishable")
@@ -38,77 +57,61 @@ local function unmakeFeedable(inst)
         end)
     end
 end
+ 
+if GetModConfigData("cfgMolesDontDieToggle") then
+    AddPrefabPostInit("mole", unmakeFeedable)
+end
+if GetModConfigData("cfgRabbitsDontDieToggle") then
+    AddPrefabPostInit("rabbit", unmakeFeedable)
+end
+if GetModConfigData("cfgBirdsDontDieToggle") then
+    AddPrefabPostInit("crow", unmakeFeedable)
+    AddPrefabPostInit("robin", unmakeFeedable)
+    AddPrefabPostInit("robin_winter", unmakeFeedable)
+    AddPrefabPostInit("canary", unmakeFeedable)
+end
+if GetModConfigData("cfgBeesDontDieToggle") then
+    AddPrefabPostInit("bee", unmakeFeedable)
+    AddPrefabPostInit("killerbee", unmakeFeedable)
+end
+if GetModConfigData("cfgButterfliesDontDieToggle") then
+    AddPrefabPostInit("butterfly", unmakeFeedable)
+end
+if GetModConfigData("cfgMosquitosDontDieToggle") then
+    AddPrefabPostInit("mosquito", unmakeFeedable)
+end
 
+-- Remove murder
 local function removeMurder(inst)
     if inst.components.health and GLOBAL.TheWorld.ismastersim then
         inst.components.health.canmurder = false
     end
 end
  
- -- make stackable
- AddPrefabPostInit("minotaurhorn", makeStackable)
- AddPrefabPostInit("tallbirdegg", makeStackable)
- if GetModConfigData("cfgRabbitsCanStackToggle") then
-    AddPrefabPostInit("rabbit", makeStackable)
- end
- if GetModConfigData("cfgBirdsCanStackToggle")then
-    AddPrefabPostInit("crow", makeStackable)
-    AddPrefabPostInit("robin", makeStackable)
-    AddPrefabPostInit("robin_winter", makeStackable)
-    AddPrefabPostInit("canary", makeStackable)
- end
- if GetModConfigData("cfgMolesCanStackToggle") then
-    AddPrefabPostInit("mole", makeStackable)
- end
- 
- -- remove feedable
- if GetModConfigData("cfgMolesDontDieToggle") then
-    AddPrefabPostInit("mole", unmakeFeedable)
- end
- if GetModConfigData("cfgRabbitsDontDieToggle") then
-    AddPrefabPostInit("rabbit", unmakeFeedable)
- end
- if GetModConfigData("cfgBirdsDontDieToggle") then
-    AddPrefabPostInit("crow", unmakeFeedable)
-    AddPrefabPostInit("robin", unmakeFeedable)
-    AddPrefabPostInit("robin_winter", unmakeFeedable)
-    AddPrefabPostInit("canary", unmakeFeedable)
- end
- if GetModConfigData("cfgBeesDontDieToggle") then
-    AddPrefabPostInit("bee", unmakeFeedable)
-    AddPrefabPostInit("killerbee", unmakeFeedable)
- end
- if GetModConfigData("cfgButterfliesDontDieToggle") then
-    AddPrefabPostInit("butterfly", unmakeFeedable)
- end
- if GetModConfigData("cfgMosquitosDontDieToggle") then
-    AddPrefabPostInit("mosquito", unmakeFeedable)
- end
-
- -- remove murder
- if GetModConfigData("cfgMolesRemoveMurderToggle") then
+if GetModConfigData("cfgMolesRemoveMurderToggle") then
     AddPrefabPostInit("mole", removeMurder)
- end
- if GetModConfigData("cfgBeesRemoveMurderToggle") then
+end
+if GetModConfigData("cfgBeesRemoveMurderToggle") then
     AddPrefabPostInit("bee", removeMurder)
     AddPrefabPostInit("killerbee", removeMurder)
- end
- if GetModConfigData("cfgButterfliesRemoveMurderToggle") then
+end
+if GetModConfigData("cfgButterfliesRemoveMurderToggle") then
     AddPrefabPostInit("butterfly", removeMurder)
- end
- if GetModConfigData("cfgRabbitsRemoveMurderToggle") then
+end
+if GetModConfigData("cfgRabbitsRemoveMurderToggle") then
     AddPrefabPostInit("rabbit", removeMurder)
- end
- if GetModConfigData("cfgBirdsRemoveMurderToggle") then
+end
+if GetModConfigData("cfgBirdsRemoveMurderToggle") then
     AddPrefabPostInit("crow", removeMurder)
     AddPrefabPostInit("robin", removeMurder)
     AddPrefabPostInit("robin_winter", removeMurder)
     AddPrefabPostInit("canary", removeMurder)
- end
- if GetModConfigData("cfgMosquitosRemoveMurderToggle") then
+end
+if GetModConfigData("cfgMosquitosRemoveMurderToggle") then
     AddPrefabPostInit("mosquito", removeMurder)
- end
+end
 
+-- Remove perish
 local function removePerish(inst)
     if inst.components.perishable and GLOBAL.TheWorld.ismastersim then
         inst:RemoveComponent("perishable")
@@ -141,4 +144,3 @@ if GetModConfigData("cfgVegSeedsDontPerish") then
     AddPrefabPostInit("tomato_seeds", removePerish)
     AddPrefabPostInit("asparagus_seeds", removePerish)
 end
-
