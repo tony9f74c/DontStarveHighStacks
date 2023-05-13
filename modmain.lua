@@ -5,7 +5,8 @@ require "components/inventoryitem"
 TUNING.STACK_SIZE_LARGEITEM = GetModConfigData("cfgChangeLargeStacksSize");
 TUNING.STACK_SIZE_MEDITEM = GetModConfigData("cfgChangeMediumStacksSize");
 TUNING.STACK_SIZE_SMALLITEM = GetModConfigData("cfgChangeSmallStacksSize");
-TUNING.STACK_SIZE_TINYITEM =  GetModConfigData("cfgChangeTinyStacksSize");
+TUNING.STACK_SIZE_TINYITEM = GetModConfigData("cfgChangeTinyStacksSize");
+TUNING.WORTOX_MAX_SOULS = GetModConfigData("cfgChangeMaxWortoxSouls");
 
 -- Update stackable_replica
 -- By Jupiter: http://steamcommunity.com/profiles/76561198204009267
